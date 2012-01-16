@@ -20,7 +20,7 @@ class rvm::config {
   }
 
   exec { 'upgrade-rvm':
-    command    => '/usr/local/rvm/bin/rvm update ; /usr/local/rvm/bin/rvm reload',
-    refreshony => 'true',
+    command     => '/usr/local/rvm/bin/rvm update ; /usr/local/rvm/bin/rvm reload',
+    refreshonly => 'true',
   }
 }
