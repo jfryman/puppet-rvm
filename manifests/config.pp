@@ -12,7 +12,7 @@ class rvm::config {
 
   file { '/usr/local/bin/rvm_set_system_ruby':
     ensure => file,
-    mode   => '0755',
+    mode   => '0700',
     source => 'puppet:///modules/rvm/bin/rvm_set_system_ruby',
   }
 
