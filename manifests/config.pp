@@ -10,6 +10,12 @@ class rvm::config {
     source => 'puppet:///modules/rvm/etc/gemrc',
   }
 
+  file { '/usr/local/bin/rvm_set_system_ruby':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/rvm/bin/rvm_set_system_ruby',
+  }
+
   file { '/etc/profile.d/rvm.sh':
     source => 'puppet:///modules/rvm/etc/profile.d/rvm.sh',
   }

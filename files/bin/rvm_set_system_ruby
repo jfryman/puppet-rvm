@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+  true ${rvm_path:="/usr/local/rvm"}
+  source "/usr/local/rvm/scripts/rvm"
+fi
+
+/usr/local/rvm/bin/rvm --default $1

@@ -10,14 +10,12 @@ define rvm::define::version (
     path    => '/usr/local/rvm/bin:/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
-  # Local Parameters
-  $rvm_ruby = '/usr/local/rvm/rubies'
-
   # Install or uninstall RVM Ruby Version
   if $ensure == 'present' {
     exec { "install-ruby-${name}":
       command => "/usr/local/rvm/bin/rvm install ${name}",
       unless  => "rvm list | grep ${name}",
+      timeout => '0',
       require => Class['rvm'],
     }
   } elsif $ensure == 'absent' {
@@ -33,8 +31,8 @@ define rvm::define::version (
   # versions from attempting to be system default.
   if ($system == 'true') and ($ensure != 'absent') {
     exec { "set-default-ruby-rvm-to-${name}":
-      command => "/usr/local/rvm/bin/rvm --default ${name}",
-      unless  => "rvm list | grep '=> ${name}'",
+      command => "/usr/local/bin/rvm_set_system_ruby ${name}",
+      unless  => "rvm list | grep '* ${name}'",
       require => [Class['rvm'], Exec["install-ruby-${name}"]],
       notify  => Exec['rvm-cleanup'],
     }
