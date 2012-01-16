@@ -3,6 +3,7 @@ define rvm::define::version (
   $system = 'false'
 ) {
   include rvm
+  include rvm::helpers
 
   ## Set sensible defaults for Exec resource
   Exec {
