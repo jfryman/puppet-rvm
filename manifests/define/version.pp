@@ -15,14 +15,14 @@ define rvm::define::version (
   # Install or uninstall RVM Ruby Version
   if $ensure == 'present' {
     exec { "install-ruby-${name}":
-      command => "rvm install ${name}",
-      creates => "${rvm_ruby}/${name}",
+      command => "/usr/local/rvm/bin/rvm install ${name}",
+      unless  => "rvm list | grep ${name}",
       require => Class['rvm'],
     }
   } elsif $ensure == 'absent' {
     exec { "uninstall-ruby-${name}":
-      command => "rvm uninstall ${name}",
-      onlyif  => "find ${rvm_ruby}/${name}",
+      command => "/usr/local/rvm/bin/rvm uninstall ${name}",
+      onlyif  => "rvm list | grep ${name}",
       require => Class['rvm'],
     }
   }
