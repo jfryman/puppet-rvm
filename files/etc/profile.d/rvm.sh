@@ -10,6 +10,7 @@ if [ -n "${BASH_VERSION:-}" -o -n "${ZSH_VERSION:-}" ] ; then
     [[ -s "$file" ]] && source $file
   done
 
+  : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
   # Load RVM if it is installed, try user then root install.
   if [[ -s "$rvm_path/scripts/rvm" ]] ; then
     source "$rvm_path/scripts/rvm"
@@ -47,7 +48,7 @@ if [ -n "${BASH_VERSION:-}" -o -n "${ZSH_VERSION:-}" ] ; then
   if [[ "${rvm_bin_path}" != "${rvm_path}/bin" ]] ; then
     regex="^([^:]*:)*${rvm_bin_path}(:[^:]*)*$"
     if [[ ! "${PATH}" =~ $regex ]] ; then
-      export PATH="${rvm_bin_path}:${PATH}"
+	  __rvm_add_to_path prepend "${rvm_bin_path}"
     fi
   fi
 fi
