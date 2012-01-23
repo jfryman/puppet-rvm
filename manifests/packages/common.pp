@@ -4,7 +4,7 @@ class rvm::packages::common {
   }
   
   exec { 'download-rvm-install':
-    command => 'wget -O /tmp/rvm https://rvm.beginrescueend.com/install/rvm',
+    command => 'wget -O /tmp/rvm https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer',
     creates => '/tmp/rvm',
     unless  => 'which rvm',
   }

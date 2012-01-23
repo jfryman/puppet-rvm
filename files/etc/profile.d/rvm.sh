@@ -5,12 +5,12 @@
 #
 if [ -n "${BASH_VERSION:-}" -o -n "${ZSH_VERSION:-}" ] ; then
 
+  : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
   # Load user rvmrc configurations, if exist
   for file in /etc/rvmrc "$HOME/.rvmrc" ; do
     [[ -s "$file" ]] && source $file
   done
 
-  : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
   # Load RVM if it is installed, try user then root install.
   if [[ -s "$rvm_path/scripts/rvm" ]] ; then
     source "$rvm_path/scripts/rvm"
@@ -48,7 +48,7 @@ if [ -n "${BASH_VERSION:-}" -o -n "${ZSH_VERSION:-}" ] ; then
   if [[ "${rvm_bin_path}" != "${rvm_path}/bin" ]] ; then
     regex="^([^:]*:)*${rvm_bin_path}(:[^:]*)*$"
     if [[ ! "${PATH}" =~ $regex ]] ; then
-	  __rvm_add_to_path prepend "${rvm_bin_path}"
+      __rvm_add_to_path prepend "${rvm_bin_path}"
     fi
   fi
 fi
