@@ -15,6 +15,12 @@ class rvm::packages {
         before  => Class['rvm::packages::common'],
       }
     }
+    Ubuntu: {
+      class { 'rvm::packages::ubuntu':
+        require => Anchor['rvm::packages::begin'],
+        before  => Class['rvm::packages::common'],
+      }
+    }
   }
   
   class { 'rvm::packages::common':
