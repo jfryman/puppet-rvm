@@ -21,6 +21,12 @@ class rvm::packages {
         before  => Class['rvm::packages::common'],
       }
     }
+    gentoo: {
+      class { 'rvm::packages::gentoo':
+        require => Anchor['rvm::packages::begin'],
+        before  => Class['rvm::packages::common'],
+      }
+    }
   }
   
   class { 'rvm::packages::common':
