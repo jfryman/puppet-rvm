@@ -26,13 +26,13 @@ define rvm::define::gem(
     $gem = {
       'install'   => "rvm ${rubyset_version} gem install ${name} --no-ri --no-rdoc",
       'uninstall' => "rvm ${rubyset_version} gem uninstall ${name}",
-      'lookup'    => "rvm gem list | grep ${name}",
+      'lookup'    => "gem list | grep ${name}",
     }
   } else {
     $gem = {
       'install'   => "rvm ${rubyset_version} gem install ${name} -v ${gem_version} --no-ri --no-rdoc",
       'uninstall' => "rvm ${rubyset_version} gem uninstall ${name} -v ${gem_version}",
-      'lookup'    => "rvm gem list | grep ${name} | grep ${gem_version}",
+      'lookup'    => "gem list | grep ${name} | grep ${gem_version}",
     }
   }
 
