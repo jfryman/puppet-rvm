@@ -16,23 +16,24 @@ define rvm::define::gem(
   $rvm_ruby = "${rvm_path}/rubies"
   
   if $gemset == '' {
-    $rvm_depency = "install-ruby-${ruby_version}"        
+    $rvm_depency = "install-ruby-${ruby_version}"
+    $rubyset_version = $ruby_version
   } else {
-    $rvm_depency = "rvm-gemset-create-${gemset}-${ruby_version}"        
+    $rvm_depency = "rvm-gemset-create-${gemset}-${ruby_version}"
     $rubyset_version = "${ruby_version}@${gemset}"
   }
   # Setup proper install/uninstall commands based on gem version.
   if $gem_version == '' {
     $gem = {
-      'install'   => "rvm ${rubyset_version} gem install ${name} --no-ri --no-rdoc",
-      'uninstall' => "rvm ${rubyset_version} gem uninstall ${name}",
-      'lookup'    => "rvm gem list | grep ${name}",
+      'install'   => "rvm ${rubyset_version} do gem install ${name} --no-ri --no-rdoc",
+      'uninstall' => "rvm ${rubyset_version} do gem uninstall ${name}",
+      'lookup'    => "rvm ${rubyset_version} do gem list | grep ${name}",
     }
   } else {
     $gem = {
-      'install'   => "rvm ${rubyset_version} gem install ${name} -v ${gem_version} --no-ri --no-rdoc",
-      'uninstall' => "rvm ${rubyset_version} gem uninstall ${name} -v ${gem_version}",
-      'lookup'    => "rvm gem list | grep ${name} | grep ${gem_version}",
+      'install'   => "rvm ${rubyset_version} do gem install ${name} -v ${gem_version} --no-ri --no-rdoc",
+      'uninstall' => "rvm ${rubyset_version} do gem uninstall ${name} -v ${gem_version}",
+      'lookup'    => "rvm ${rubyset_version} do gem list | grep ${name} | grep ${gem_version}",
     }
   }
 
